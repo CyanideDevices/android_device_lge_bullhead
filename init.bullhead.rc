@@ -54,7 +54,7 @@ on property:sys.boot_completed=1
 
 on init
     # Load persistent dm-verity state
-    verity_load_state
+    #verity_load_state
 
     # Set permissions for persist partition
     mkdir /persist 0771 system system
@@ -89,10 +89,10 @@ on early-boot
     write /sys/module/peripheral_loader/parameters/proxy_timeout_ms ${persist.sys.pil_proxy_timeout}
 
     # Adjust parameters for dm-verity device
-    write /sys/block/dm-0/queue/read_ahead_kb 2048
+    #write /sys/block/dm-0/queue/read_ahead_kb 2048
 
     # Update dm-verity state and set partition.*.verified properties
-    verity_update_state
+    #verity_update_state
 
 on boot
     symlink /dev/block/platform/soc.0/f9824900.sdhci /dev/block/bootdevice

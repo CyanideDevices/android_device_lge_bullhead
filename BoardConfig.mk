@@ -40,6 +40,31 @@ BOARD_KERNEL_CMDLINE += lpm_levels.sleep_disabled=1 msm_poweroff.download_mode=0
 
 BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 
+# Cyanide Build Flags
+ TARGET_CYANIDE_ROM := 4.9
+ TARGET_NDK_CYANIDE_ROM := 4.9
+ TARGET_GCC_VERSION_ARM64 := 4.9
+ 
+ # Build block-based
+ CYANIDE_BUILD_BLOCK := false
+ 
+ # Optimizations
+ CLANG_O3 := false
+ STRICT_ALIASING := false
+ GRAPHITE_OPTS := false
+ USE_O3_OPTIMIZATIONS := false
+ OFAST_OPTS := false
+ ENABLE_GCCONLY := false
+ KRAIT_TUNINGS := false
+ FLOOP_NEST_OPTIMIZE := false
+ USE_PIPE := false
+
+# Prebuilt ThugLife kernel
+PRODUCT_COPY_FILES += thugimage:kernel
+
+#Include KernelAdiutor
+KERNEL_APP := true
+
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
 
