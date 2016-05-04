@@ -19,16 +19,6 @@
 #
 # Everything in this directory will become public
 
-
-#ifeq ($(TARGET_PREBUILT_KERNEL),)
-#LOCAL_KERNEL := device/lge/bullhead-kernel/Image.gz-dtb
-#else
-#LOCAL_KERNEL := $(TARGET_PREBUILT_KERNEL)
-#endif
-#
-#PRODUCT_COPY_FILES := \
-#    $(LOCAL_KERNEL):kernel
-
 PRODUCT_COPY_FILES += \
     device/lge/bullhead/init.bullhead.rc:root/init.bullhead.rc \
     device/lge/bullhead/init.bullhead.usb.rc:root/init.bullhead.usb.rc \
@@ -49,7 +39,7 @@ PRODUCT_COPY_FILES += \
 # Audio
 PRODUCT_COPY_FILES += \
     device/lge/bullhead/audio_policy.conf:system/etc/audio_policy.conf \
-    device/lge/bullhead/audio_effects.conf:system/etc/audio_effects.conf \
+    device/lge/bullhead/audio_effects.conf:system/etc/audio_effects_vendor.conf \
     device/lge/bullhead/mixer_paths.xml:system/etc/mixer_paths.xml \
     device/lge/bullhead/audio_platform_info.xml:system/etc/audio_platform_info.xml
 
@@ -125,10 +115,6 @@ PRODUCT_COPY_FILES += \
     device/lge/bullhead/wifi/WCNSS_cfg.dat:system/etc/firmware/wlan/qca_cld/WCNSS_cfg.dat \
     device/lge/bullhead/wifi/WCNSS_qcom_cfg.ini:system/etc/firmware/wlan/qca_cld/WCNSS_qcom_cfg.ini
 
-# MSM IRQ Balancer configuration file
-PRODUCT_COPY_FILES += \
-    device/lge/bullhead/msm_irqbalance.conf:vendor/etc/msm_irqbalance.conf
-
 # Power configuration file
 PRODUCT_COPY_FILES += \
     device/lge/bullhead/init.bullhead.power.sh:system/bin/init.bullhead.power.sh
@@ -192,6 +178,7 @@ PRODUCT_COPY_FILES += \
 
 # NFC packages
 PRODUCT_PACKAGES += \
+    com.android.nfc_extras \
     nfc_nci.bullhead \
     NfcNci \
     Tag
@@ -216,7 +203,12 @@ PRODUCT_PACKAGES += \
     libmmcamera_interface2 \
     libmmjpeg_interface \
     libqomx_core \
-    mm-qcamera-app
+    mm-qcamera-app \
+    Snap
+
+# Snap Config
+PRODUCT_PROPERTY_OVERRIDES += \
+    persist.camera.cpp.duplication=false
 
 # Sensor & activity_recognition HAL
 PRODUCT_PACKAGES += \
@@ -247,7 +239,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.audio.fluence.voicerec=false \
     persist.audio.fluence.speaker=true \
     persist.speaker.prot.enable=true \
-    ro.config.vc_call_vol_steps=7
+    ro.config.vc_call_vol_steps=7 \
+    audio.offload.pcm.24bit.enable=true
 
 # Reduce client buffer size for fast audio output tracks
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -427,11 +420,6 @@ PRODUCT_COPY_FILES += \
     device/lge/bullhead/init.bullhead.diag.rc.user:root/init.bullhead.diag.rc \
     device/lge/bullhead/init.bullhead.misc.rc.user:root/init.bullhead.misc.rc
 endif
-
-# setup dm-verity configs.
-#PRODUCT_SYSTEM_VERITY_PARTITION := /dev/block/platform/soc.0/f9824900.sdhci/by-name/system
-#PRODUCT_VENDOR_VERITY_PARTITION := /dev/block/platform/soc.0/f9824900.sdhci/by-name/vendor
-#$(call inherit-product, build/target/product/verity.mk)
 
 # setup dalvik vm configs.
 $(call inherit-product, frameworks/native/build/phone-xhdpi-2048-dalvik-heap.mk)

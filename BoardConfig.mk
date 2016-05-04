@@ -18,13 +18,13 @@ TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
 TARGET_CPU_ABI2 :=
-TARGET_CPU_VARIANT := cortex-a53
+TARGET_CPU_VARIANT := generic
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv7-a-neon
 TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
-TARGET_2ND_CPU_VARIANT := cortex-a7
+TARGET_2ND_CPU_VARIANT := cortex-a53.a57
 
 ENABLE_CPUSETS := true
 
@@ -65,8 +65,13 @@ PRODUCT_COPY_FILES += device/lge/bullhead/thugimage:kernel
 #Include KernelAdiutor
 KERNEL_APP := true
 
+BOARD_NEEDS_VENDORIMAGE_SYMLINK := true
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+
 BOARD_USES_ALSA_AUDIO := true
 AUDIO_FEATURE_ENABLED_MULTI_VOICE_SESSIONS := true
+AUDIO_FEATURE_ENABLED_FLAC_OFFLOAD := true
+AUDIO_FEATURE_ENABLED_SPKR_PROTECTION := true
 
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_QCOM := true
@@ -137,7 +142,7 @@ BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_NEEDS_VENDORIMAGE_SYMLINK := true
 
 # Build a separate vendor.img
-TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_VENDOR := system
 
 BOARD_HAL_STATIC_LIBRARIES := libdumpstate.bullhead
 
@@ -162,11 +167,16 @@ TARGET_USES_INTERACTION_BOOST := true
 # Once camera module can run in the native mode of the system (either
 # 32-bit or 64-bit), the following line should be deleted
 BOARD_QTI_CAMERA_32BIT_ONLY := true
+USE_DEVICE_SPECIFIC_CAMERA := true
 
 #Enable peripheral manager
 TARGET_PER_MGR_ENABLED := true
 
 # Include an expanded selection of fonts
 EXTENDED_FONT_FOOTPRINT := true
+
+# CM Hardware
+BOARD_USES_CYANOGEN_HARDWARE := true
+BOARD_HARDWARE_CLASS := hardware/cyanogen/cmhw
 
 -include vendor/lge/bullhead/BoardConfigVendor.mk
