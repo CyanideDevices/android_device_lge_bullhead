@@ -60,7 +60,7 @@ BOARD_MKBOOTIMG_ARGS := --ramdisk_offset $(BOARD_RAMDISK_OFFSET) --tags_offset $
  USE_PIPE := false
 
 # Prebuilt ThugLife kernel
-PRODUCT_COPY_FILES += thugimage:kernel
+PRODUCT_COPY_FILES += device/lge/bullhead/thugimage:kernel
 
 #Include KernelAdiutor
 KERNEL_APP := true
